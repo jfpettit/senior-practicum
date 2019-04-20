@@ -1,0 +1,940 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Chapter4}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{Image}
+\end{Verbatim}
+
+    \section{Chapter 4}\label{chapter-4}
+
+    The following in this notebook are my notes and code from Chapter 4 of
+"Reinforcement Learning: An Introduction" by Sutton and Barto.
+
+    Dynamic programming (DP) refers to a set of algorithms that can be used
+to calculate the optimal policies, given a perfect model of the
+environment as a Markov decision process.
+
+\textbf{"Classical DP algorithms are of limited utility in reinforcement
+learning both because of their assumption of a perfect model and because
+of their great computational expense, but they are still important
+theoretically."}
+
+Typically, we make the assumption that our environment is a finite MDP.
+Dynamic programming can be applied to problems that have continuous
+state and action spaces, but then exact solutions are only possible in
+special cases. One common method of getting approximate solutions for
+such tasks is to quantize the state and action spaces and then use the
+finite-state DP algorithms. Methods explored in Part 2 can be applied to
+continuous problems and are an extension of that approach.
+
+"Key idea of dynamic programming, and of reinforcement learning
+generally, is the use of value functions to organize and structure the
+search for good policies." In this chapter we'll show how dynamic
+programming can compute the value functions from Chapter 3. We can
+obtain optimal policies once we've found the optimal value functions,
+\(v_*\) or \(q_*\), that meet the Bellman optimality equations:
+
+\(v_*(s) = max_a \mathbb{E}[R_{t+1} + \gamma v_*(S_{t+1} | S_t = s, A_t = a]\)
+
+\(v_*(s) = max_a \sum_{s', r} p(s', r | s, a)[r + \gamma v_*(s') \quad (4.1) \quad\),
+or
+
+\(q_*(s, a) = \mathbb{E}[R_{t+1} + \gamma max_{a'} q_*(S_{t+1}, a') | S_t = s, A_t = a]\)
+
+\(q_*(s, a) = \sum_{s', r} p(s', r | s, a) [r + \gamma max_{a'} q_*(s', a')] \quad (4.2) \quad\)
+
+\(\forall \quad s \in S, \space a \in A(s), \space s' \in S^+\)
+
+Dynamic programming algorithms are formed by turning these into update
+rules for improving the approximations of the value functions.
+
+    \subsubsection{4.1 Policy Evaluation
+(Prediction)}\label{policy-evaluation-prediction}
+
+    Policy evaluation is how we compute the state-value function \(v_\pi\)
+for a policy \(\pi\). It is also referred to as the prediction problem.
+Recall from ch. 3, \(\forall \quad s \in S\),
+
+\(v_\pi(s) \stackrel{.}{=} \mathbb{E}_\pi [G_t | S_t = s]\)
+
+\(v_\pi(s) = \mathbb{E} [R_{t+1} + \gamma G_{t+1} | S_t = s] \quad \quad\)
+(from (3.9))
+
+\(v_\pi(s) = \mathbb{E} [R_{t+1} + \gamma v_\pi(S_{t+1}) | S_t = s] \quad \quad (4.3)\)
+
+\(v_\pi(s) = \sum_a \pi(a | s) \sum_{s', r} p(s', r | s, a)[r + \gamma v_k(s')] \quad (4.4)\),
+
+\(\pi (a | s)\) is the probability of taking an action \(a\) in state
+\(s\) under policy \(\pi\). The expected returns and values are
+subscripted by \(\pi\) to indicate that they're conditional on \(\pi\)
+being followed. 'The existence and uniqueness of \(v_\pi\) are
+guaranteed as long as either \(\gamma < 1\) or eventual termination is
+guaranteed from all states under the policy \(\pi\).
+
+    When environment dynamics are all completely known, 4.4 is a system of
+\(|S|\) linear equations in \(|S|\) unknowns. The unknowns are the
+values of each state \(s \in S\). Here, an iterative solution method is
+best to compute the solutions to the linear system. We arbitrarily
+choose our initial value approximation, and each subsequent
+approximation is obtained by using the Bellman equation for
+\(v_\pi (4.4)\) as an update rule.
+
+\(v_{k+1}(s) \stackrel{.}{=} \mathbb{E}_\pi[R_{t+1} + \gamma v_k (S_{t+1}) | S_t = s]\)
+
+\(v_{k+1}(s) = \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a)[r + \gamma v_k(s')] \quad (4.5)\)
+
+\(\forall \quad s \in S\)
+
+\(v_k = v_\pi\) is fixed point for this update rule since the Bellman
+equation guarantees equality in this case. The sequence of \({v_k}\) can
+be shown to converge to \(v_\pi\) as \(k \rightarrow \infty\). This is
+under the same conditions that guarantee us the existence of \(v_\pi\).
+This algorithm is named \emph{iterative policy evaluation}.
+
+Iterative policy evaluation applies the same operation to each state:
+replaces the old value of state \(s\) with new value, obtained from the
+old values and from the expected immediate reward along all the possible
+one-step transitions under the policy that is being evaluated. This
+operation is called an expected update. "Each iteration of iterative
+policy evaluation updates the value of every state once to produce the
+new approximate value function \(v_{k+1}\)." The kind of expected
+updates depends on whether we are updating a state or state-action pair,
+and depends on the way that the estimated values of the later states are
+combined. Every update done in a dynamic programming algorithm is an
+expected update because we are updating the values based on an
+expectation over all possible next states rather than on a sampled next
+state.
+
+To code a sequential program for iterative policy evaluation like in
+(4.5), will need to use two arrays. One array for the values before the
+latest update \({v_k(s)}\), and one for the values after the latest
+update \({v_{k+1}(s)}\). Doing it this way, we can compute the new
+values one at a time from the old values without the old values being
+manipulated. Or, we can use one array and update the values in place.
+Doing that, depending on the order that the states are updated, new
+values might be used instead of old ones on the RHS of equation (4.5).
+The in-place version of the algorithm will also converge to \(v_\pi\).
+It often will converge faster than the two-array version of the
+algorithm, because new values are used as soon as they are available. In
+the in-place version of the algorithm, the order in which states have
+their values updated during the "sweep" (sweep is one iteration of
+updates through all states) has a large impact on the rate of
+convergence.
+
+    Pseudocode from the book for iterative policy evaluation for estimating
+\(V \approx v_\pi\)
+
+Input is our policy to be evaluated, \(\pi\), a threshold parameter for
+convergence (as in iterative methods like successive over relaxation or
+Gauss-Seidel), and an initial guess for \(V(s)\), for all \(s \in S^+\)
+except for \(V(terminal) = 0\).
+
+Loop 1:
+
+\(\delta \leftarrow 0\)
+
+Loop over each \(s\in S\):
+
+\(v \leftarrow V(S)\)
+
+\(V(s) \leftarrow \sum_{a} \pi(a|s) \sum_{s', r} p(s', r | s, a)[r + \gamma V(s')]\)
+
+\(\delta \leftarrow max(\delta, |v - V(s)|)\)
+
+until \(\delta < \space\) tolerance
+
+    \textbf{Example 4.1} 4 x 4 gridworld
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{Image}\PY{p}{(}\PY{n}{filename}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Screenshot from 2019\PYZhy{}03\PYZhy{}13 19\PYZhy{}19\PYZhy{}27.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}11}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    Nonterminal states are all not grey states, so
+\(S = {1, 2, \dots, 14}\). Each state has four possible actions,
+\(A = {up, down, left, right}\). The actions deterministically cause the
+corresponding state transitions. Except for the fact that actions that
+would take the agent off of the grid instead leave the state unchanged.
+This task is not discounted and it is episodic. All transitions have a
+reward of -1 until we reach the terminal state. Even though the terminal
+state is shown in two places, it is actually one state. Our expected
+reward function is \(r(s, a, s') = -1 \forall \quad\) states \(s, s'\)
+and actions. If the agent follows the equiprobable random policy, then
+the left side of Figure 4.1 shows the sequence of the value functions
+\({v_k}\) computed by iterative policy evaluation. The final estimate
+ends up being \(v_\pi\).
+
+    \subsection{4.2 Policy Improvement}\label{policy-improvement}
+
+    Computing the value function for a policy can help us find better
+policies. Imagine we've got a value function \(v_\pi\) for some
+deterministic policy \(\pi\). For a state \(s\) we'd like to figure
+whether we should change the policy so that it deterministically chooses
+an action \(a \neq \pi(s)\). We already know how good it is to follow
+our current policy, but we want to know if it'd be better to change to a
+new policy.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{Image}\PY{p}{(}\PY{n}{filename}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Screenshot from 2019\PYZhy{}03\PYZhy{}14 13\PYZhy{}07\PYZhy{}07.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}12}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    A way to answer this is to select \(a\) in \(s\) and afterward follow
+the existing policy. The value of doing this is:
+
+\(q_\pi(s, a) \stackrel{.}{=} \mathbb{E}[R_{t+1} + \gamma v_\pi(S_{t+1})| S_t = s , A_t = a] \quad (4.6)\)
+
+\(q_\pi(s, a) = \sum_{s', r} p(s', r | s, a)[r + \gamma v_\pi(s')]\)
+
+Key criterion is whether this is reater or less than \(v_\pi(s)\). If it
+is greater (if it's better to select action \(a\) once in \(s\) and
+afterward follow \(\pi\) than to follow \(\pi\) all the time) then we'd
+expect it to be even better to pick \(a\) every time we're in \(s\) and
+that the new policy would be better overall.
+
+    This being true is a special case of the \emph{policy improvement
+theorem}. Have \(\pi\) and \(\pi'\) be any pair of deterministic
+policies such that \(\forall \quad s \in S\),
+
+\(q_\pi(s, \pi'(s)) \geq v_\pi(s) \quad (4.7)\)
+
+So policy \(\pi'\) has to be at least as good as \(\pi\). It has to get
+greater or equal expected return from all \(s \in S\).
+
+\(v_{\pi'}(s) \geq v_\pi(s) \quad (4.8)\)
+
+"If there is strict inequality of (4.7) at any state, there must also be
+strict inequality of (4.8) at that state." This applies particularly to
+the two policies from the paragraph above. Those policies are identical
+except \(\pi'(s) = a \neq \pi(s)\). (4.7) holds at all states besides s.
+So, if \(q_\pi(s, a) > v_\pi(s)\) then \(\pi'\) is actually better.
+
+The proof behind the policy improvement theorem is found by starting at
+(4.7) and keep expanding the \(q_\pi\) side with (4.6) and reapplying
+(4.7) until getting \(v_{\pi'}(s)\):
+
+\(v_\pi(s) \leq q_\pi(s, \pi'(s))\)
+
+\(\quad = \mathbb{E}[R_{t+1} + \gamma v_\pi(S_{t+1}) | S_t = s, A_t = \pi'(s)] \quad \quad \quad\)
+(by (4.6))
+
+\(\quad = \mathbb{E}_{\pi'}[R_{t+1} + \gamma v_pi(S_{t+1}) | S_t = s]\)
+
+\(\quad \leq \mathbb{E}_{\pi'}[R_{t+1} + \gamma q_\pi(S_{t+1}, \pi'(S_{t+1})) | S_t = s] \quad \quad \quad\)
+(by (4.7))
+
+\(\quad = \mathbb{E}_{\pi'}[R_{t+1} + \gamma \mathbb{E}_{\pi'}[R_{t+2} + \gamma v_\pi(S_{t+2}) | S_{t+1}, A_{t+1} = \pi'(S_{t+1})] | S_t = s]\)
+
+\(\quad = \mathbb{E}_{\pi'}[R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \gamma^3 v_\pi(S_{t+2}) | S_t = s]\)
+
+\(\quad \leq \mathbb{E}_{\pi'}[R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \gamma^3 v_\pi(S_{t+3}) | S_t = s]\)
+
+\(\quad \vdots\)
+
+\(\quad \leq \mathbb{E}_{\pi'}[R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \gamma^3 R_{t+4} + \dotsb | S_t = s]\)
+
+\(\quad = v_{\pi'}(s)\)
+
+    Lets extend to look at changes of the policy at all states and to all
+actions we could possibly make. We'll choose the action at each state
+that appears best according to \(q_\pi(s, a)\). This will make the new
+greedy policy \(\pi'\);
+
+\(\pi'(s) \stackrel{.}{=} argmax_a q_\pi(s, a)\)
+
+\(\quad = argmax_a \mathbb{E}[R_{t+1} + \gamma v_\pi(S_{t+1}) | S_t = s, A_t = a] \quad (4.9)\)
+
+\(\quad = argmax_a \sum_{s', r} p(s', r | s, a)[r + \gamma v_\pi(s')]\)
+
+This greedy policy chooses the action that looks best in the short term
+with a one step look ahead, according to \(v_\pi\). "By construction,
+the greedy policy meets the conditions of the policy improvement theorem
+(4.7), so we know that it is as good as, or better than, the original
+policy." This process of making a new policy that is an improvement over
+the oldp olicy, by making it greedy with respect to the value function
+of the old policy is called \emph{policy improvement}.
+
+    If the new greedy policy is as good as but not better than the old
+policy then \(v_\pi = v_{\pi'}\) and from (4.9) it follows for all
+states:
+
+\(v_{\pi'}(s) = max_a \mathbb{E}[R_{t+1} + \gamma v_{\pi'}(S_{t+1}) | S_t = s, A_t = a]\)
+
+\(\quad = max_a \sum_{s', r} p(s', r | s, a)[r + \gamma v_{\pi'}(s')]\).
+
+This is the same thing as the original Bellman optimality equation (4.1)
+and so \(v_{\pi'}\) must be \(v_*\) and so both \(\pi\) and \(\pi'\)
+have to be optimal policies. The policy improvement has to give us a
+better policy except for when the original policy is already an optimal
+one.
+
+"In the general case, a stochastic policy \(\pi\) specifies
+probabilities, \(\pi(a|s)\), for taking each action, \(a\), in each
+state, \(s\)."
+
+The ideas covered here, on deterministic policies, extend easily to
+stochastic policies. In stochastic policies, the policy improvement
+theorem is unchanged from the way it is written here. If there is a tie
+in policy improvement steps like in (4.9) (so if there are multiple
+actions which have maximal value) then in the stochastic case we can
+give each action a portion of probability of being selected in the
+greedy policy. Any scheme for assigning the portions of the
+probabilities works as long as all of the actions which don't have
+maximal value are given probability of zero.
+
+Last row of Fig. 4.1 shows an example of policy improvement for a
+stochastic policy. "Here, the original policy, \(\pi\), is the
+equiprobable random policy, and the new policy, \(\pi'\), is greedy with
+respect to \(v_\pi\)." The value function is in the bottom-left diagram
+and the set of possible \(\pi'\) is in the bottom right. States with
+multiple arrows in the \(\pi'\) diagram are the states where several
+actions achieve the maximum value in (4.9). Although here the new policy
+after the improvement happens to be the optimal policy, in general only
+an improvement on the original policy is guaranteed.
+
+    \subsection{4.3 Policy Iteration}\label{policy-iteration}
+
+    When policy \(\pi\) has been improved using \(v_\pi\) to give a new and
+better policy \(\pi'\) we can compute a new value function, \(v_{\pi'}\)
+and again improve it to give us an even better policy \(\pi''\). So, we
+can get a sequence of 'monotonically improving policies and value
+functions:'
+
+\(\pi_0 \stackrel{E}{\rightarrow} v_{\pi_0} \stackrel{I}{\rightarrow} \pi_2 \stackrel{E}{\rightarrow} \dotsb \stackrel{I}{\rightarrow} \pi_* \stackrel{E}{\rightarrow} v_*\)
+
+\(\stackrel{E}{\rightarrow}\) shows a policy evaluation and
+\(\stackrel{I}{\rightarrow}\) is a policy improvement. 'Each policy is
+guaranteed to be a strict improvement over the previous one (unless it
+is already optimal.' Since a finite MDP has a finite number of policies,
+this policy iteration process has to converge to a optimal policy and
+optimal value function within a finite num of iterations.
+
+    This is called policy iteration. Each policy evaluation is started with
+the value function for the previous policy (similar to other iterative
+methods, where we use a previous approximation to improve the current
+approximation). This often gives a large increase in the speed of
+convergence of policy evaluation.
+
+    Policy iteration algorithm from the book.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Initialization
+\end{enumerate}
+
+\(V(s) \in \mathbb(R)\) and \(\pi(s) \in A(s)\) arbitrarily for all
+\(s \in S\)
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Policy Evaluation
+\end{enumerate}
+
+Loop:
+
+\(\delta \leftarrow 0\)
+
+Loop for each \(s \in S\):
+
+\(v \leftarrow V(S)\)
+
+\(V(s) \leftarrow \sum_{s', r} p(s', r | s, \pi(s))[r + \gamma V(s')]\)
+
+\(\delta \leftarrow max(\delta, |v - V(s)|)\)
+
+until \(\delta < tolerance\)
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Policy Improvement
+\end{enumerate}
+
+\emph{policy-stable} \(\leftarrow true\)
+
+For each \(s \in S\):
+
+\emph{old-action} \(\leftarrow \pi(s)\)
+
+\(\pi(s) \leftarrow argmax_a \sum_{s', r} p(s', r | s, a)[r + \gamma V(s')]\)
+
+If \emph{old-action} \(\neq \pi(s)\), then \emph{policy-stable}
+\(\leftarrow false\)
+
+If \emph{policy-stable}, then stop and return \(V \approxeq v_*\) and
+\(\pi \approxeq \pi_*\); else go to 2
+
+    \subsection{4.4 Value Iteration}\label{value-iteration}
+
+    A drawback of policy iteration is, each of its iterations requires
+policy evaluation steps, and those policy evaluation steps may require
+multiple sweeps through the entire state-space. If we are performing
+policy evaluation with an iterative method, then it converges exactly to
+\(v_\pi\) only at the limit. Can we stop short of waiting for exact
+convergence? Figure 4.1 shows that after 3 policy evaluations, we've
+converged. So that example could be truncated to only do 3 policy
+evaluations and the optimal policy would be found.
+
+    "In fact, the policy evaluation step of policy iteration can be
+truncated in several ways without losing the convergence guarantees of
+policy iteration."
+
+An important case of this is called \textbf{value iteration}, when
+policy evaluation is stopped after just one sweep through the
+state-space. It can be written as a simple update operation that
+combines policy improvement and truncated policy evaluation steps.
+
+\(v_{k+1}(s) \stackrel{.}{=} max_a \mathbb{E}[R_{t+1} + \gamma v_k(S_{t+1}) | S_t = s, A_t = a]\)
+
+\$ \quad = max\_a \sum\_\{s', r\} p(s', r \textbar{} s, a){[}r +
+\gamma v\_k(s'){]} \quad \forall \space s \in S \quad \quad (4.10)\$
+
+"For arbitrary \(v_0\), the sequence \{\(v_k\)\} can be shown to
+converge to \(v_*\), under the same conditions that guarantee the
+existence of \(v_*\)"
+
+    We can also work to understand value iteration by reference to the
+Bellman optimality equation (equation 4.1). Value iteration is obtained
+by just taking the Bellman optimality equation and turning it into an
+update rule. Value iteration update is identical to the policy iteration
+update except that the value iteration update requires that the maximum
+be taken over all actions.
+
+    Value iteration is similar to policy iteration in the way that both
+formally require an infinte number of iterations to completely converge
+to \(v_*\). In reality, we choose to stop the value iteration once the
+value function changes by only a very small amount in a sweep. Below is
+a complete algorithm with this kind of termination condition
+
+    Value iteration, for estimating \(\pi \approxeq \pi_*\)
+
+Algorithm parameters: small threshold \(\theta > 0\) determining how
+accurate the estimation is. Initialize
+\(V(s), \space \forall \space s \in S^+\). Any initialization is
+appropriate as long as \(V(terminal) = 0\).
+
+Loop:\\
+\(\quad \Delta \leftarrow 0\)\\
+\(\quad\) Loop for each \(s \in S\):\\
+\(\quad \quad v \leftarrow V(s)\)\\
+\(\quad \quad V(s) \leftarrow max_a\sum_{s', r} p(s', r | s, a)[r + \gamma V(s')]\)\\
+\(\quad \quad \Delta \leftarrow max(\Delta, |v - V(s)|)\)
+
+until \(\Delta < \theta\)
+
+Output a deterministic policy \(\pi \approxeq \pi_*\), such that,\\
+\(\pi(s) = argmax_a \sum_{s', r} p(s', r | s, a)[r + \gamma V(s')]\)
+
+    "Value iteration effectively combines, in each of its sweeps, one sweep
+of policy iteration and one sweep of policy improvement."
+
+Even faster convergence can be achieved by interposing each policy
+improvement sweep with multiple policy evaluation sweeps. Overall, we
+can consider the entire class of truncated policy iteration algorithms
+as sequences of sweeps. Some of the sweeps make use of policy evaluation
+updates and some use value iteration updates. All of these algorithms
+will converge to an optimal policy for a finite discounted MDP.
+
+    \textbf{Example 4.3: Gambler's Problem}
+
+In this problem, a gambler is playing a game in which they can make bets
+on the outcome of coin flips. If the coin lands on heads, the gambler
+wins as many dollars as they've bet on that throw. If it lands on tails,
+they lose their bet. The game ends when the gambler reaches the goal of
+winning 100 dollars, or when they run out of money. The gambler has to
+decide what portion of their capital to bet, in integer amount of
+dollars, on each flip. "This problem can be formulated as an
+undiscounted, episodic, finite MDP." State space is the gambler's
+capital, \(s \in \{1, 2, \dots, 99\}\). The actions are the bets the
+gambler can make in each state,
+\(a \in \{1, 2, \dots, min(s, (100 - s))\}\). The reward is always zero
+on state transitions except for on the transition where the gambler wins
+the game. On that transition, the reward is +1. The state-value function
+will then give the probability of winning from a particular state, while
+the policy learned will be a mapping from levels of capital to bets.
+Naturally, the optimal policy will maximize the probability of reaching
+the goal. Have \(p_h\) denote the probability of the coin showing heads.
+If we know \(p_h\), then the whole problem can be solved with value
+iterations.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{Image}\PY{p}{(}\PY{n}{filename}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Screen Shot 2019\PYZhy{}03\PYZhy{}24 at 3.39.59 PM.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}13}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    Fig. 4.3 shows how the value function changes over successive sweeps of
+value iteration and it shows the final policy found for when
+\(p_h = .4\) While this policy is optimal, it isn't unique. There is a
+family of optimal policies, they all correspond to ties between the
+argmax action selection with respect to the optimal value function.
+
+    \subsection{4.5 Asynchronous Dynamic
+Programming}\label{asynchronous-dynamic-programming}
+
+    "A major drawback to the DP methods that we have discussed so far is
+that they involve operations over the entire state set of the MDP, that
+is, they require sweeps of the state set." If the state set is really
+big, even a single sweep can be so computationally expensive that it
+cannot be completed in a reasonable time frame. For example, for
+backgammon, which has approximately \(10^20\) states, it would take 1000
+years to do a single sweep if we could do the value iteration on one
+million states per second.
+
+"\emph{Asyncrhonous} DP algorithms are in-place iterative DP algorithms
+that are not organized in terms of systematic sweeps of the state set.
+These algorithms update the values of states in any order whatsoever,
+using whatever values of other states happen to be available."
+
+Some states may have values that are updated many times before other
+states are updated even once. However, for proper convergence, an
+asynchronous algorithm must continuously update the values of all the
+states. It cannot ignore any state after a point in the computation.
+"Asynchronous DP algorithms allow great flexibility in selecting states
+to update."
+
+i.e. one version of asynchronous dynamic programming will update the
+values, in place, of only one state \(s_k\) on step \(k\). It uses the
+value iteration update (4.10). When \(0 \leq \gamma < 1\) asymptotic
+convergence to \(v_*\) is guaranteed given that all states occur in the
+sequence of states \(\{s_k\}\) an infinite number of times. The sequence
+could even be stochastic. It is possible that there are some orderings
+of updates in the undiscounted episodic case that fail to give
+convergence, but these are relatively easy to avoid. It is also possible
+to intermix value iteration and policy evaluation updates to give a sort
+of asynchronous truncated policy iteration.
+
+Avoiding computing sweeps doesn't necessarily mean that we will have to
+perform less computation. It only means that an algorithm doesn't need
+to get stuck in doing an unnecesarily long sweep before it can improve
+its policy. Can work to take advantage of the flexibility of these
+algorithms by choosing the states that we apply updates to so that we
+can try to improve the algorithm's rate of progress. Could also try to
+order the states to let the value information propagate between states
+in an efficient manner. Some states won't need their values updated as
+often as others, we could even try skipping some states completely if
+they're not relevant to obtaining optimal behavior.
+
+With asynchronous algorithms we can also more easily intermix
+computation and real-time interaction. In order to solve a given MDP, an
+iterative DP algorithm can be run at the same time that the agent is
+actually existing in and experiencing the MDP. The states that the agent
+experiences can be used to decide which states the DP algorithm applies
+its updates to. Simultaneously, the most current value and policy
+information from the algorithm can guide the agent's decisions. "For
+example, we can apply updates to states as the agent visits them. This
+makes it possible to \emph{focus} the DP algorithm's updates onto parts
+of the state set that are most relevant to the agent." The focusing on
+most relevant states and learning optimal actions in those is a
+recurrent theme in reinforcement learning.
+
+    \subsection{4.6 Generalized Policy
+Iteration}\label{generalized-policy-iteration}
+
+    \textbf{"Policy iteration consists of two simultaneous, interacting
+processes, one making the value function consistent with the current
+policy (policy evaluation), and the other making the policy greedy with
+respect to the current value function (policy improvement)."}
+
+In policy iteration, these two processes alternate, with each one
+finishing before the other begins, but this isn't really necessary. i.e.
+in value iteration, only one iteration of policy evaluation is performed
+between each step of policy improvement. In asynchronous DP, these two
+processes are mixed even more finely. "As long as both processes
+continue to update all states, the result is usually the
+same-\/-convergence to the optimal value function and an optimal
+policy."
+
+\emph{Generalized policy iteration} (GPI) is used to refer to the
+general idea of letting policy-evaluation and policy-improvement
+processes interact. A vast majority of RL processes are well described
+as GPI. This is to say that all have policies and value functions, the
+policy is always improved with respect to the value function and the
+value function is always being pushed towards the value function for the
+policy, as shown in the diagram below. If both of these processes
+stabilize, then the value function and policy must be optimal. "The
+value function stabilizes only when it is consistent with the current
+policy, and the value function stabilizes only when it is greedy with
+respect to the current value function." So, for both of those processes
+to stabilize, a policy must be found that is greedy with respect to its
+own evaluation function. This condition implies to us that the Bellman
+optimality equation (4.1) holds and that the policy and value function
+must be optimal. Evaluation and improvement in GPI can be viewed both as
+competing and cooperating. They are competing because they pull each
+other in opposite directions, but over the long run the processes
+interact to find a single solution: an optimal value function and
+optimal policy.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{Image}\PY{p}{(}\PY{n}{filename}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Screen Shot 2019\PYZhy{}03\PYZhy{}26 at 4.39.37 PM.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}7}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \subsubsection{4.7 Efficiency of Dynamic
+Programming}\label{efficiency-of-dynamic-programming}
+
+While dynamic programming (DP) methods aren't suitable for really large
+problems, when they are compared to some other methods for solving MDPs,
+DP is quite efficient. Ignoring some technical details, the worst case
+time DP methods take to find optimal policy is polynomial in the number
+of states and actions. \emph{n} and \emph{k} denote the numbers of
+states and actions, this means that a DP method takes a number of
+operations less than some polynomial function of \emph{n} and \emph{k}.
+DP is guaranteed to find optimal policy in polynomial run time even
+though the number of deterministic policies is \(k^n\). In this way, DP
+is exponentially faster than any possible direct search in policy space
+would be, since a direct search would have to exhaustively examine every
+possible policy in order to achieve the same guarantee. Linear
+programming can also be used to solve MDPs, and sometimes their worst
+case runtimes are better than DPs. Issue is that linear programming
+methods become impractical at a much smaller scale than DP methods do
+(by about 100 times). For the really big problems, DP methods are really
+the only feasible option.\\
+While large state sets do create problems for DP methods because of the
+curse of dimensionality, these are difficulties inherent to the problem,
+not difficulties of the DP method. DP is better suited to handling large
+state spaces than linear programming, direct search, or other competing
+methods.
+
+DP can be used with today's computers to solve problems with millions of
+states. It isn't clear whether policy iteration or value iteration is
+better, and both are widely used. "In practice, these methods usually
+converge must faster than their theoretical worst-case run times,
+particularly if they are started with good initial value functions or
+policies."
+
+For problems with really big state spaces, asynchronous DP methods are
+typically better. To do just one sweep with a synchronous method needs
+time and computational memory for every single state. Some problems
+still require so much computation and memory that synchronous methods
+are impractical, but they're still potentially solvable since
+significantly fewer states could appear along the optimal solution
+trajectories. In these cases, asynchronous methods or other variations
+of GPI can be used and these methods may be able to find an optimal, or
+at least a good policy faster than a synchronous method could.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
