@@ -11,13 +11,22 @@ other open source repositories (namely, Denny Britz's [repo](https://github.com/
 
 For further details about projects I've done, and to see what I'm up to now, check out my [website](https://jfpettit.github.io).
 
-### To play against the Tic-tac-toe agent in this repository:
+### To play against the Tic-tac-toe agent in this repository
+
+Open a terminal and clone the repository:
 
 ```shell
+git clone https://github.com/jfpettit/senior-practicum.git
+```
 
-$:git clone https://github.com/jfpettit/senior-practicum.git
+Then, cd into the repository and into the folder containing the Tic-tac-toe agent and game:
 
-$:cd senior-practicum/TD_tictactoe/
+```shell
+cd senior-practicum/TD_tictactoe/
+```
 
-$:python tictactoe_runner.py
+Finally, run the Tic-tac-toe runner file:
+
+```shell
+python tictactoe_runner.py
 ```
