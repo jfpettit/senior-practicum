@@ -13,7 +13,8 @@ For further details about projects I've done, and to see what I'm up to now, che
 
 ### To play against the Tic-tac-toe agent in this repository:
 
-'''shell
+'''bash
+
 git clone https://github.com/jfpettit/senior-practicum.git
 
 cd senior-practicum/TD_tictactoe/
