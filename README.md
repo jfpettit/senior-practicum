@@ -13,11 +13,11 @@ For further details about projects I've done, and to see what I'm up to now, che
 
 ### To play against the Tic-tac-toe agent in this repository:
 
-'''bash
+```shell
 
 git clone https://github.com/jfpettit/senior-practicum.git
 
 cd senior-practicum/TD_tictactoe/
 
 python tictactoe_runner.py
-'''
+```
