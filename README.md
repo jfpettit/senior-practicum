@@ -10,3 +10,13 @@ and the paper is a PDF. This was NOT edited for good software engineering practi
 other open source repositories (namely, Denny Britz's [repo](https://github.com/dennybritz/reinforcement-learning)). 
 
 For further details about projects I've done, and to see what I'm up to now, check out my [website](https://jfpettit.github.io).
+
+### To play against the Tic-tac-toe agent in this repository:
+
+'''shell
+git clone https://github.com/jfpettit/senior-practicum.git
+
+cd senior-practicum/TD_tictactoe/
+
+python tictactoe_runner.py
+'''
